@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+
+    <title>ConnectFour</title>
+
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #title {
+            color: orange;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #status {
+            color: red;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .put {
+            width: 50px;
+            height: 30px;
+            margin: 1px;
+        }
+
+        td {
+            text-align: center;
+            border: 2px solid #757575;
+            width: 50px;
+            height: 50px;
+        }
+
+        #reset {
+            width: 50px;
+            height: 30px;
+        }
+    </style>
+
+    <!-- Inline scripts are forbidden in Firefox OS apps (CSP restrictions),
+         so we use a script file. -->
+    <script src="main.js" defer></script>
+    <script src="game.js" defer></script>
+</head>
+
+<body>
+    <!-- This code is in the public domain. Enjoy! -->
+    <div id='title' align="center">
+        ConnectFour
+    </div>
+    <div id='status' align="center">
+        Player: Red
+    </div>
+    <div id="buttons" align="center">
+        <button id="col0" class="put">Put</button>
+        <button id="col1" class="put">Put</button>
+        <button id="col2" class="put">Put</button>
+        <button id="col3" class="put">Put</button>
+        <button id="col4" class="put">Put</button>
+        <button id="col5" class="put">Put</button>
+        <button id="col6" class="put">Put</button>
+    </div>
+    <table id="board" align="center">
+        <tbody>
+            <tr>
+                <td id="0-0"></td>
+                <td id="0-1"></td>
+                <td id="0-2"></td>
+                <td id="0-3"></td>
+                <td id="0-4"></td>
+                <td id="0-5"></td>
+                <td id="0-6"></td>
+            </tr>
+            <tr>
+                <td id="1-0"></td>
+                <td id="1-1"></td>
+                <td id="1-2"></td>
+                <td id="1-3"></td>
+                <td id="1-4"></td>
+                <td id="1-5"></td>
+                <td id="1-6"></td>
+            </tr>
+            <tr>
+                <td id="2-0"></td>
+                <td id="2-1"></td>
+                <td id="2-2"></td>
+                <td id="2-3"></td>
+                <td id="2-4"></td>
+                <td id="2-5"></td>
+                <td id="2-6"></td>
+            </tr>
+            <tr>
+                <td id="3-0"></td>
+                <td id="3-1"></td>
+                <td id="3-2"></td>
+                <td id="3-3"></td>
+                <td id="3-4"></td>
+                <td id="3-5"></td>
+                <td id="3-6"></td>
+            </tr>
+            <tr>
+                <td id="4-0"></td>
+                <td id="4-1"></td>
+                <td id="4-2"></td>
+                <td id="4-3"></td>
+                <td id="4-4"></td>
+                <td id="4-5"></td>
+                <td id="4-6"></td>
+            </tr>
+            <tr>
+                <td id="5-0"></td>
+                <td id="5-1"></td>
+                <td id="5-2"></td>
+                <td id="5-3"></td>
+                <td id="5-4"></td>
+                <td id="5-5"></td>
+                <td id="5-6"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div align="center">
+        <button id="reset">Reset</button>
+    </div>
+</body>
+
+</html>
