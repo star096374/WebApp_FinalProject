@@ -145,7 +145,7 @@
             if(leftdown >= 3 || rightup >= 3 || (leftdown+rightup) >= 3) {
                 this.winner(player);
             }
-            //如果已經下到了最後一部仍然沒有人勝利，則宣佈平手
+            //如果已經下到了最後一步仍然沒有人勝利，則宣佈平手
             if(this.counter == 41) {
                 exports.alert('Draw!');
             }
