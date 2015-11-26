@@ -10,12 +10,7 @@
     ConnectFour.prototype = {
         init() {
             //初始化棋盤狀態
-            for(var i = 0; i < 6; i++) {
-                this.boardStatus[i] = [];
-                for(var j = 0; j < 7; j++) {
-                    this.boardStatus[i][j] = -1;
-                }
-            }
+            this.resetBoardStatus();
             //將每個按鈕的EventListener加上去
             for(var i = 0; i < 7; i++) {
                 var targetId = 'col' + i;
@@ -65,8 +60,34 @@
             }).bind(this));
         },
 
+        //檢查是否已經有勝利者產生
         checkWin(row, col, player) {
-            //檢查直的是否有連成一線
+            //flag用來記錄目前狀況，true代表已經有勝利者產生，否則為false
+            var flag = false;
+            if(this.checkVertical(row, col, player) == true) {
+                flag = true;
+            }
+            else if (this.checkHorizontal(row, col, player) == true) {
+                flag = true;
+            }
+            else if (this.checkLeftupToRightdown(row, col, player) == true) {
+                flag = true;
+            }
+            else if (this.checkLeftdownToRightup(row, col, player) == true) {
+                flag = true;
+            }
+            //若已經有勝利者產生，則呼叫winner函式宣告勝利者
+            if (flag == true) {
+                this.winner(player);
+            }
+            //若沒有勝利者產生，但已經下到最後一步棋，則宣告平手
+            else if (this.checkDraw() == true) {
+                exports.alert('Draw!');
+            }
+        },
+
+        //檢查垂直方向是否已經連成一線
+        checkVertical(row, col, player) {
             var down = 0;
             for(var i = row; i <= 5; i++) {
                 if(this.boardStatus[i][col] == player) {
@@ -77,9 +98,15 @@
                 }
             }
             if(down == 4) {
-                this.winner(player);
+                return true;
             }
-            //檢查橫的是否有連成一線
+            else {
+                return false;
+            }
+        },
+
+        //檢查水平方向是否已經連成一線
+        checkHorizontal(row, col, player) {
             var left = 0;
             var right = 0;
             for(var i = col+1; i <= 6; i++) {
@@ -99,9 +126,15 @@
                 }
             }
             if(left >= 3 || right >= 3 || (left+right) >= 3) {
-                this.winner(player);
+                return true;
             }
-            //檢查左上到右下是否有連成一線
+            else {
+                return false;
+            }
+        },
+
+        //檢查左上到右下是否已經連成一線
+        checkLeftupToRightdown(row, col, player) {
             var leftup = 0;
             var rightdown = 0;
             for(var i = 1; i <= 6; i++) {
@@ -121,9 +154,15 @@
                 }
             }
             if(leftup >= 3 || rightdown >= 3 || (leftup+rightdown) >= 3) {
-                this.winner(player);
+                return true;
             }
-            //檢查右上到左下是否連成一線
+            else {
+                return false;
+            }
+        },
+
+        //檢查左下到右上是否已經連成一線
+        checkLeftdownToRightup(row, col, player) {
             var leftdown = 0;
             var rightup = 0;
             for(var i = 1; i <= 6; i++) {
@@ -143,32 +182,21 @@
                 }
             }
             if(leftdown >= 3 || rightup >= 3 || (leftdown+rightup) >= 3) {
-                this.winner(player);
+                return true;
             }
-            //如果已經下到了最後一步仍然沒有人勝利，則宣佈平手
-            if(this.counter == 41) {
-                exports.alert('Draw!');
+            else {
+                return false;
             }
         },
 
-        reset() {
-            this.counter = 0;
-            for(var i = 0; i < 6; i++) {
-                this.boardStatus[i] = [];
-                for(var j = 0; j < 7; j++) {
-                    this.boardStatus[i][j] = -1;
-                }
+        //檢查是否平手
+        checkDraw() {
+            if(this.counter == 41) {
+                return true;
             }
-            var td = document.getElementsByTagName('td');
-            for(var i = 0; i < 42; i++) {
-                td[i].innerHTML = '';
+            else {
+                return false;
             }
-            for(var i = 0; i < 7; i++) {
-                var s = 'col' + i;
-                document.getElementById(s).disabled = false;
-            }
-            document.getElementById('status').innerHTML = "Player:Red";
-            document.getElementById('status').style.color = 'red';
         },
 
         //宣告勝利者用的函式，並將按鈕都disable掉
@@ -183,6 +211,37 @@
             else {
                 exports.alert('Yellow Win!');
             }
+        },
+
+        //重置遊戲狀況的函式
+        reset() {
+            this.resetCounter();
+            this.resetBoardStatus();
+            var td = document.getElementsByTagName('td');
+            for(var i = 0; i < 42; i++) {
+                td[i].innerHTML = '';
+            }
+            for(var i = 0; i < 7; i++) {
+                var s = 'col' + i;
+                document.getElementById(s).disabled = false;
+            }
+            document.getElementById('status').innerHTML = "Player:Red";
+            document.getElementById('status').style.color = 'red';
+        },
+
+        //清空棋盤狀態
+        resetBoardStatus() {
+            for(var i = 0; i < 6; i++) {
+                this.boardStatus[i] = [];
+                for(var j = 0; j < 7; j++) {
+                    this.boardStatus[i][j] = -1;
+                }
+            }
+        },
+
+        //將counter歸零
+        resetCounter() {
+            this.counter = 0;
         }
     };
 
